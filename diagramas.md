@@ -1,5 +1,9 @@
+# Atividade Aula 4 - Modelagem UML do SIGA
+
+## 1. Diagrama de Classes (Etapas 1 a 4)
+
+```mermaid
 classDiagram
-    %% Etapa 1 e 2: Entidades, visibilidade e Herança
     class Pessoa {
         #String nome
         #String email
@@ -19,7 +23,6 @@ classDiagram
     Pessoa <|-- Aluno : herda
     Pessoa <|-- Professor : herda
 
-    %% Etapa 1: Disciplina e Matricula
     class Disciplina {
         -String nome
         -int cargaHoraria
@@ -31,7 +34,6 @@ classDiagram
         +salvar() void
     }
 
-    %% Etapa 3: Turma contendo Aluno (Agregação com multiplicidade)
     class Turma {
         -String codigo
         -List~Aluno~ alunos
@@ -39,12 +41,10 @@ classDiagram
     }
     Turma o--"1..*" Aluno : contem
 
-    %% Relacionamentos adicionais básicos do domínio
     Matricula --> Aluno : pertence a
     Turma --> Disciplina : referente a
     Turma --> Professor : ministrada por
 
-    %% Etapa 4: Interface Desconto e implementações (Realização)
     class Desconto {
         <<interface>>
         +aplicar(double valorBase) double
@@ -61,10 +61,14 @@ classDiagram
     Desconto <|.. DescontoBolsista : realiza
     Desconto <|.. DescontoConvenio : realiza
     Matricula --> Desconto : usa
+```
 
+---
 
+## 2. Diagrama de Sequência (Etapa 5)
 
-    sequenceDiagram
+```mermaid
+sequenceDiagram
     actor Cliente
     participant M as :Matricula
     participant D as :Desconto (Bolsista)
@@ -77,3 +81,4 @@ classDiagram
     deactivate D
     M-->>Cliente: retorna valorFinal
     deactivate M
+```
